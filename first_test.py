@@ -11,9 +11,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 def func_prin(message):
     print(message)
 
+
 driver = webdriver.Chrome()
 
-@pytest.fixture(scope="module")
+
+@pytest.fixture(autouse=True, scope="module")
 def login(request):
     driver.implicitly_wait(10)
     driver.maximize_window()
@@ -26,7 +28,8 @@ def login(request):
     yield
     driver.quit()
 
-@pytest.fixture()
+
+@pytest.fixture(autouse=True)
 def start_page():
     driver.get("http://localhost:8080/ui/#default_personal/dashboard")
 
@@ -40,7 +43,7 @@ def start_page():
 #    assert elem.is_displayed()
 
 
-def test_1(start_page, login):
+def test_1():
     demo: WebElement = driver.find_element_by_xpath('//*[@class="gridCell__grid-cell--3e2mS gridCell__align-left--2beIG dashboardTable__name--1sWJs"]').send_keys(Keys.ENTER)
     widget: WebElement = driver.find_element_by_xpath('(//div/button)[2]').click()
     button_passing: WebElement = driver.find_element_by_xpath('(//label)[14]').click()
@@ -52,7 +55,7 @@ def test_1(start_page, login):
     assert driver.find_element_by_xpath('//*[@class="noDataAvailable__no-data-available--3EH6v"]')
 
 
-def test_2(start_page, login):
+def test_2():
     launches: WebElement = driver.find_element_by_xpath('//a[@href="#default_personal/launches"]').click()
     skipped_main: WebElement = int(driver.find_element_by_xpath('//*[@href="#default_personal/launches/all/7?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DSKIPPED"]').text)
     failed_main: WebElement = int(driver.find_element_by_xpath('//*[@href="#default_personal/launches/all/7?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DFAILED%252CINTERRUPTED"]').text)
@@ -85,13 +88,13 @@ def test_2(start_page, login):
     assert failed_main == failed
 
 
-def test_3(start_page, login):
+def test_3():
     launches: WebElement = driver.find_element_by_xpath('//a[@href="#default_personal/launches"]').click()
     total = len(driver.find_elements_by_xpath("//*[@class='gridRow__grid-row-wrapper--1dI9K']"))
     assert total == 10
 
 
-def test_4(start_page, login):
+def test_4():
     drop_buttons: WebElement = driver.find_element_by_xpath('//*[@class="userBlock__menu-icon--_7G3G"]').click()
     PROFILE: WebElement = driver.find_element_by_xpath('//a[@href="#user-profile"][@class="userBlock__menu-item--6Fruf"]').click()
     Language: WebElement = driver.find_element_by_xpath('//*[@class="inputDropdown__select-block--2CQf-"]').click()
@@ -100,7 +103,7 @@ def test_4(start_page, login):
     assert Russian_text == 'Русский'
 
 
-def test_5(start_page, login):
+def test_5():
     drop_buttons: WebElement = driver.find_element_by_xpath('//*[@class="userBlock__menu-icon--_7G3G"]').click()
     PROFILE: WebElement = driver.find_element_by_xpath('//a[@href="#user-profile"][@class="userBlock__menu-item--6Fruf"]').click()
     Photo: WebElement = driver.find_element_by_xpath('//input[@type="file"]').send_keys("C:/Users/User/Pictures/zxc.jpg")
