@@ -1,18 +1,8 @@
 import pytest
-import selenium
-import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.common.action_chains import ActionChains
-from dashboard_page import DashboardPage
-
-def func_prin(message):
-    print(message)
+from first_test import driver
 
 
-driver = webdriver.Chrome()
 link = "http://localhost:8080/"
 
 @pytest.fixture(autouse=True, scope="module")
@@ -28,13 +18,6 @@ def login(request):
     yield
     driver.quit()
 
-
 @pytest.fixture(autouse=True)
 def start_page():
     driver.get(link + "ui/#default_personal/dashboard")
-
-
-def test_1():
-    dashbord_page = DashboardPage(driver)
-    dashbord_page.driver = driver
-    dashbord_page.clik_demo()

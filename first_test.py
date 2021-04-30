@@ -6,41 +6,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.action_chains import ActionChains
+from class_first import ClassFirstTest
+
 
 
 def func_prin(message):
     print(message)
 
-
 driver = webdriver.Chrome()
-
-
-@pytest.fixture(autouse=True, scope="module")
-def login(request):
-    driver.implicitly_wait(10)
-    driver.maximize_window()
-    driver.get("http://localhost:8080/")
-    login: WebElement = driver.find_element_by_xpath(
-        "//*[@class='inputOutside__input--1Sg9p'][@type='text']").send_keys('default')
-    password: WebElement = driver.find_element_by_xpath(
-        "//*[@class='inputOutside__input--1Sg9p'][@type='password']").send_keys('1q2w3e')
-    ingress: WebElement = driver.find_element_by_xpath("//*[@type='submit']").click()
-    yield
-    driver.quit()
-
-
-@pytest.fixture(autouse=True)
-def start_page():
-    driver.get("http://localhost:8080/ui/#default_personal/dashboard")
-
-
-# waituntil - element visible, exist, displayed - conditions, wait custom conditions
-#
-# def test_first():
-#    driver = webdriver.Chrome()
-#    driver.get("http://localhost:8080/ui/#login")
-#    elem: WebElement = driver.find_element(by=By.XPATH, value="//input")
-#    assert elem.is_displayed()
+class_first = ClassFirstTest(driver)
+class_first.driver = driver
 
 
 def test_1():
@@ -56,7 +31,7 @@ def test_1():
 
 
 def test_2():
-    launches: WebElement = driver.find_element_by_xpath('//a[@href="#default_personal/launches"]').click()
+    class_first.launches()
     skipped_main: WebElement = int(driver.find_element_by_xpath('//*[@href="#default_personal/launches/all/7?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DSKIPPED"]').text)
     failed_main: WebElement = int(driver.find_element_by_xpath('//*[@href="#default_personal/launches/all/7?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DFAILED%252CINTERRUPTED"]').text)
     passed_main: WebElement = int(driver.find_element_by_xpath("//*[@href='#default_personal/launches/all/7?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DPASSED']").text)
@@ -87,25 +62,22 @@ def test_2():
     assert skipped_main == skipped
     assert failed_main == failed
 
-
 def test_3():
-    launches: WebElement = driver.find_element_by_xpath('//a[@href="#default_personal/launches"]').click()
+    class_first.launches()
     total = len(driver.find_elements_by_xpath("//*[@class='gridRow__grid-row-wrapper--1dI9K']"))
     assert total == 10
 
-
 def test_4():
-    drop_buttons: WebElement = driver.find_element_by_xpath('//*[@class="userBlock__menu-icon--_7G3G"]').click()
-    PROFILE: WebElement = driver.find_element_by_xpath('//a[@href="#user-profile"][@class="userBlock__menu-item--6Fruf"]').click()
+    class_first.drop_buttons()
+    class_first.PROFILE()
     Language: WebElement = driver.find_element_by_xpath('//*[@class="inputDropdown__select-block--2CQf-"]').click()
     Russian: WebElement = driver.find_element_by_xpath('//*[@class="inputDropdownOption__dropdown-option--3Szk3"][2]').click()
     Russian_text: WebElement = driver.find_element_by_xpath('// span[ @class ="inputDropdown__value--2gB2s"]').text
     assert Russian_text == 'Русский'
 
-
 def test_5():
-    drop_buttons: WebElement = driver.find_element_by_xpath('//*[@class="userBlock__menu-icon--_7G3G"]').click()
-    PROFILE: WebElement = driver.find_element_by_xpath('//a[@href="#user-profile"][@class="userBlock__menu-item--6Fruf"]').click()
+    class_first.drop_buttons()
+    class_first.PROFILE()
     Photo: WebElement = driver.find_element_by_xpath('//input[@type="file"]').send_keys("C:/Users/User/Pictures/zxc.jpg")
 
 

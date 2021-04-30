@@ -18,3 +18,5 @@ def test_first():
     assert elem.is_displayed()
 
 
+
+# waituntil - element visible, exist, displayed - conditions, wait custom conditions
