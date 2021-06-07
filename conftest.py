@@ -2,12 +2,11 @@ import pytest
 from selenium.webdriver.remote.webelement import WebElement
 from first_test import driver
 
-
 link = "http://localhost:8080/"
 
 @pytest.fixture(autouse=True, scope="module")
-def login(request):
-    driver.implicitly_wait(10)
+def login():
+    driver.implicitly_wait(7)
     driver.maximize_window()
     driver.get(link)
     login: WebElement = driver.find_element_by_xpath(
@@ -17,6 +16,7 @@ def login(request):
     ingress: WebElement = driver.find_element_by_xpath("//*[@type='submit']").click()
     yield
     driver.quit()
+
 
 @pytest.fixture(autouse=True)
 def start_page():
