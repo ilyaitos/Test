@@ -1,3 +1,4 @@
+from time import sleep
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -11,69 +12,58 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 dashboard = DashboardPage(driver)
 launches = LaunchesPage(driver)
 
-
-def test_1():
-    dashboard.clik_demo()
-    dashboard.new_widget()
-    dashboard.widget_type(13)
-    dashboard.button_next1()
-    dashboard.button_demo_filter()
-    dashboard.button_next2()
-    dashboard.clear_text()
-    dashboard.widget_name('jack')
-    dashboard.add_button()
-    assert dashboard.check('jack')
+#
+# def test_1():
+#     dashboard.clik_demo()
+#     dashboard.new_widget()
+#     dashboard.widget_type(13)
+#     dashboard.button_next1()
+#     dashboard.button_demo_filter()
+#     dashboard.button_next2()
+#     dashboard.clear_text()
+#     dashboard.widget_name('jack')
+#     dashboard.add_button()
+#     assert dashboard.check('jack')
 
 
 def test_2():
-    launches.clik_launches()
-    number_skipped = launches.skipped_main(7)
-    number_failed = launches.failed_main(7)
-    number_passed = launches.passed_main(7)
-    number_total = launches.total_main(7)
-    launches.total_click(7)
-    passed = 0
-    failed = 0
-    skipped = 0
-    total = 0
-    while True:
-        total_len = launches.total_score()
-        passed_len = launches.score('Passed')
-        skipped_len = launches.score('Skipped')
-        failed_len = launches.score('Failed')
-        button = launches.button_next()
-        classes_element = button.get_attribute('class')
-        driver.execute_script("arguments[0].click();", button)
-        total += total_len
-        passed += passed_len
-        failed += failed_len
-        skipped += skipped_len
-        if classes_element == 'pageButton__page-button--OHYKN pageButton__disabled--3-RYj':
-            break
-    assert number_total == total
-    assert number_passed == passed
-    assert number_skipped == skipped
-    assert number_failed == failed
+    demo_api_tests_number = 7
+    launches.click_button_launches()
+    number_skipped = launches.skipped_main(demo_api_tests_number)
+    number_failed = launches.failed_main(demo_api_tests_number)
+    number_passed = launches.passed_main(demo_api_tests_number)
+    number_total = launches.total_main(demo_api_tests_number)
+    launches.total_click(demo_api_tests_number)
+    quantity_tests = launches.test_score()
+    assert number_passed == quantity_tests['passed']
+    assert number_failed == quantity_tests['failed']
+    assert number_skipped == quantity_tests['skipped']
+    assert number_total == quantity_tests['total']
+
+#
+# def test_3():
+#     launches.click_button_launches()
+#     launches.number_tests()
+#     assert launches.number_tests() == 10
+#
+#
+# def test_4():
+#     dashboard.click_drop_buttons()
+#     dashboard.click_button_profile()
+#     dashboard.drop_language()
+#     dashboard.russian_language()
+#     dashboard.russian_text()
+#     assert dashboard.russian_text() == 'Русский'
+#
+# def test_5():
+#     dashboard.click_drop_buttons()
+#     dashboard.click_button_profile()
+#     dashboard.photo("C:/Users/User/Pictures/zxc.jpg")
 
 
-def test_3():
-    launches.clik_launches()
-    launches.number_tests()
-    assert launches.number_tests() == 10
 
 
-def test_4():
-    dashboard.drop_buttons()
-    dashboard.profile()
-    dashboard.drop_language()
-    dashboard.russian_language()
-    dashboard.russian_text()
-    assert dashboard.russian_text() == 'Русский'
 
-def test_5():
-    dashboard.drop_buttons()
-    dashboard.profile()
-    dashboard.photo("C:/Users/User/Pictures/zxc.jpg")
 
 
 

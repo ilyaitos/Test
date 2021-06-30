@@ -1,9 +1,6 @@
+from home_page import HomePage
 
-
-class DashboardPage:
-
-    def __init__(self, driver):
-        self.driver = driver
+class DashboardPage(HomePage):
 
     def clik_demo(self):
         clik_demo = self.driver.find_element_by_xpath('//*[@class="gridCell__grid-cell--3e2mS '
@@ -45,14 +42,6 @@ class DashboardPage:
     def check(self, name):
         check = self.driver.find_element_by_xpath("//*[@class='widgetHeader__widget-name-block--7fZoV' and text()='" + str(name) + "']")
         return check
-
-    def drop_buttons(self):
-        drop_buttons = self.driver.find_element_by_xpath('//*[@class="userBlock__menu-icon--_7G3G"]')
-        drop_buttons.click()
-
-    def profile(self):
-        profile = self.driver.find_element_by_xpath('//a[@href="#user-profile"][@class="userBlock__menu-item--6Fruf"]')
-        profile.click()
 
     def drop_language(self):
         drop_language = self.driver.find_element_by_xpath('//*[@class="inputDropdown__select-block--2CQf-"]')
