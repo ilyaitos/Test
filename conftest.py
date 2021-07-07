@@ -14,7 +14,7 @@ def login():
     password: WebElement = driver.find_element_by_xpath(
         "//*[@class='inputOutside__input--1Sg9p'][@type='password']").send_keys('1q2w3e')
     ingress: WebElement = driver.find_element_by_xpath("//*[@type='submit']").click()
-    yield
+    yield driver
     driver.quit()
 
 

@@ -12,18 +12,16 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 dashboard = DashboardPage(driver)
 launches = LaunchesPage(driver)
 
-#
-# def test_1():
-#     dashboard.clik_demo()
-#     dashboard.new_widget()
-#     dashboard.widget_type(13)
-#     dashboard.button_next1()
-#     dashboard.button_demo_filter()
-#     dashboard.button_next2()
-#     dashboard.clear_text()
-#     dashboard.widget_name('jack')
-#     dashboard.add_button()
-#     assert dashboard.check('jack')
+def test_1():
+    name = 'jack'
+    dashboard.clik_demo("DEMO DASHBOARD")
+    dashboard.new_widget_type('Launches duration chart')#['Launch statistics chart', 'Overall statistics', 'Launches duration chart', 'Launch execution and issue statistic', 'Project activity panel', 'Test-cases growth trend chart', 'Investigated percentage of launches', 'Launches table', 'Unique bugs table', 'Most failed test-cases table (TOP-20)', 'Failed cases trend chart', 'Non-passed test-cases trend chart', 'Different launches comparison chart', 'Passing rate per launch', 'Passing rate summary', 'Flaky test cases table (TOP-20)', 'Cumulative trend chart', 'Most popular pattern table (TOP-20)', 'Component health check', 'Component health check (table view)']
+    dashboard.click_button_demo_filter()
+    dashboard.click_button_next()
+    dashboard.widget_name(name)
+    dashboard.click_button_add()
+    score = dashboard.score_widget()
+    assert score.count(name) == 0
 
 
 def test_2():
@@ -40,40 +38,20 @@ def test_2():
     assert number_skipped == quantity_tests['skipped']
     assert number_total == quantity_tests['total']
 
-#
-# def test_3():
-#     launches.click_button_launches()
-#     launches.number_tests()
-#     assert launches.number_tests() == 10
-#
-#
-# def test_4():
-#     dashboard.click_drop_buttons()
-#     dashboard.click_button_profile()
-#     dashboard.drop_language()
-#     dashboard.russian_language()
-#     dashboard.russian_text()
-#     assert dashboard.russian_text() == 'Русский'
-#
-# def test_5():
-#     dashboard.click_drop_buttons()
-#     dashboard.click_button_profile()
-#     dashboard.photo("C:/Users/User/Pictures/zxc.jpg")
+def test_3():
+    launches.click_button_launches()
+    launches.number_tests()
+    assert launches.number_tests() == 10
 
+def test_4():
+    dashboard.click_button_profile()
+    dashboard.drop_language()
+    dashboard.russian_language()
+    dashboard.russian_text()
+    assert dashboard.russian_text() == 'Русский'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def test_5():
+    dashboard.click_button_profile()
+    dashboard.photo("C:/Users/User/Pictures/zxc.jpg")
 
 

@@ -1,50 +1,65 @@
+from selenium.webdriver.common.keys import Keys
 from home_page import HomePage
+
+class LocatorsDashboardPage:
+
+    LOCATOR_BUTTON_NEXT = '(//div[@id="modal-root"]//button[@type="button"])[last()]'
+    LOCATOR_BUTTON_DEMO_FILTER = '//*[@class="filtersItem__filter-item--1OosV"]'
+    LOCATOR_BUTTON_NEW_WIDGET_TYPE = '(//div/button)[2]'
+    LOCATOR_BUTTON_WIDGET_TYPE = '//*[@class="widgetTypeItem__widget-type-item--17_3G"]'
+    LOCATOR_WIDGET_NAME = '//input[@placeholder="Enter widget name"]'
+    LOCATOR_WIDGET_ADD = '//*[@class="bigButton__big-button--ivY7j bigButton__color-booger--2IfQT"]'
+    LOCATOR_BUTTON_DROP_LANGUAGE = '//*[@class="inputDropdown__select-block--2CQf-"]'
+    LOCATOR_PHOTO  = '//input[@type="file"]'
 
 class DashboardPage(HomePage):
 
-    def clik_demo(self):
-        clik_demo = self.driver.find_element_by_xpath('//*[@class="gridCell__grid-cell--3e2mS '
-                                                    'gridCell__align-left--2beIG ''dashboardTable__name--1sWJs"]')
+    def clik_demo(self, name):
+        clik_demo = self.driver.find_element_by_xpath("//*[@class='gridCell__grid-cell--3e2mS gridCell__align-left--2beIG dashboardTable__name--1sWJs'][text()='" + str(name) + "']")
         clik_demo.click()
 
-    def new_widget(self):
-        new_widget = self.driver.find_element_by_xpath('(//div/button)[2]')
-        new_widget.click()
+    def new_widget_type(self, number):
+        click_button_new_widget = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEW_WIDGET_TYPE)
+        click_button_new_widget.click()
+        click_button_widget_type = self.driver.find_elements_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_WIDGET_TYPE)
+        list = []
+        for x in click_button_widget_type:
+            list += [x.text]
+        widget_type = list.index(number) - 1
+        click_button_widget_type = self.driver.find_element_by_xpath('(//label)[' + str(widget_type) + ']')
+        click_button_widget_type.click()
+        button_next1 = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
+        button_next1.send_keys(Keys.ENTER)
 
-    def widget_type(self, number):  # 1-20
-        widget_type = self.driver.find_element_by_xpath('(//label)[' + str(number) + ']')
-        widget_type.click()
+    def click_button_next(self):
+        click_button_next = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
+        click_button_next.send_keys(Keys.ENTER)
 
-    def button_next1(self):
-        button_next1 = self.driver.find_element_by_xpath('//*[@class="ghostButton__icon--2rRly ghostButton__icon-at-right--3Ui7m"]')
-        self.driver.execute_script("arguments[0].click();", button_next1)
 
-    def button_demo_filter(self):
-        button_demo_filter = self.driver.find_element_by_xpath('//*[@class="filtersItem__filter-item--1OosV"]')
-        button_demo_filter.click()
-
-    def clear_text(self):
-        clear_text = self.driver.find_element_by_xpath('//input[@placeholder="Enter widget name"]')
-        clear_text.clear()
+    def click_button_demo_filter(self):
+        click_button_demo_filter = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DEMO_FILTER)
+        click_button_demo_filter.click()
 
     def widget_name(self, name):
-        widget_name = self.driver.find_element_by_xpath('//input[@placeholder="Enter widget name"]')
+        clear_text = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_WIDGET_NAME)
+        clear_text.clear()
+        widget_name = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_WIDGET_NAME)
         widget_name.send_keys(str(name))
 
-    def button_next2(self):
-        button_next2 = self.driver.find_element_by_xpath('//*[@class="ghostButton__icon--2rRly ghostButton__icon-at-right--3Ui7m"]')
-        button_next2.click()
+    def click_button_add(self):
+        click_button_add = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_WIDGET_ADD)
+        click_button_add.click()
 
-    def add_button(self):
-        add_button = self.driver.find_element_by_xpath('//*[@class="bigButton__big-button--ivY7j bigButton__color-booger--2IfQT"]')
-        add_button.click()
+    def score_widget(self):
+        score_widget = self.driver.find_elements_by_xpath('//*[@class="react-grid-item widgetsGrid__widget-view--dVnmj react-draggable cssTransforms react-resizable"]')
+        return score_widget
 
     def check(self, name):
         check = self.driver.find_element_by_xpath("//*[@class='widgetHeader__widget-name-block--7fZoV' and text()='" + str(name) + "']")
         return check
 
     def drop_language(self):
-        drop_language = self.driver.find_element_by_xpath('//*[@class="inputDropdown__select-block--2CQf-"]')
+        drop_language = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DROP_LANGUAGE)
         drop_language.click()
 
     def russian_language(self):
@@ -56,5 +71,5 @@ class DashboardPage(HomePage):
         return russian_text.text
 
     def photo(self, picture):
-        photo = self.driver.find_element_by_xpath('//input[@type="file"]')
+        photo = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_PHOTO)
         photo.send_keys(picture)
