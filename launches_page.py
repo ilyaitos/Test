@@ -3,13 +3,9 @@ from home_page import HomePage
 #
 # class LocatorsLaunchesPage:
 #
-#
 #     url_main = "//a[@href='#default_personal/launches/all/"
 #     LOCATOR_BUTTON_TOTAL = url_main + str(number) + "?item0Params=filter.eq.hasStats%3Dtrue%26filter.eq.hasChildren%3Dfalse%26filter.in.type%3DSTEP%26filter.in.status%3DPASSED%252CFAILED%252CSKIPPED%252CINTERRUPTED']"
 #
-
-
-
 class LaunchesPage(HomePage):
 
     def number_tests(self):
