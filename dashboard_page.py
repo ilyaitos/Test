@@ -11,19 +11,21 @@ class LocatorsDashboardPage:
     LOCATOR_WIDGET_ADD = '//*[@class="bigButton__big-button--ivY7j bigButton__color-booger--2IfQT"]'
     LOCATOR_BUTTON_DROP_LANGUAGE = '//*[@class="inputDropdown__select-block--2CQf-"]'
     LOCATOR_PHOTO  = '//input[@type="file"]'
+    LOCATOR_BUTTON_DEMO = "//*[@class='gridCell__grid-cell--3e2mS gridCell__align-left--2beIG dashboardTable__name--1sWJs'][text()='{}']"
+
 
 class DashboardPage(HomePage):
 
     def clik_demo(self, name):
-        clik_demo = self.driver.find_element_by_xpath("//*[@class='gridCell__grid-cell--3e2mS gridCell__align-left--2beIG dashboardTable__name--1sWJs'][text()='" + str(name) + "']")
+        clik_demo = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DEMO.format(name))
         clik_demo.click()
 
     def new_widget_type(self, number):
         click_button_new_widget = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEW_WIDGET_TYPE)
         click_button_new_widget.click()
-        click_button_widget_type = self.driver.find_elements_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_WIDGET_TYPE)
+        buttons_widgets_type = self.driver.find_elements_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_WIDGET_TYPE)
         list = []
-        for x in click_button_widget_type:
+        for x in buttons_widgets_type:
             list += [x.text]
         widget_type = list.index(number) - 1
         click_button_widget_type = self.driver.find_element_by_xpath('(//label)[' + str(widget_type) + ']')
@@ -54,9 +56,9 @@ class DashboardPage(HomePage):
         score_widget = self.driver.find_elements_by_xpath('//*[@class="react-grid-item widgetsGrid__widget-view--dVnmj react-draggable cssTransforms react-resizable"]')
         return score_widget
 
-    def check(self, name):
-        check = self.driver.find_element_by_xpath("//*[@class='widgetHeader__widget-name-block--7fZoV' and text()='" + str(name) + "']")
-        return check
+    # def check(self, name):
+    #     check = self.driver.find_element_by_xpath("//*[@class='widgetHeader__widget-name-block--7fZoV' and text()='" + str(name) + "']")
+    #     return check
 
     def drop_language(self):
         drop_language = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DROP_LANGUAGE)

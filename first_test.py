@@ -11,17 +11,17 @@ def func_prin(message):
 driver = webdriver.Chrome(ChromeDriverManager().install())
 dashboard = DashboardPage(driver)
 launches = LaunchesPage(driver)
-
-def test_1():
-    name = 'jack'
-    dashboard.clik_demo("DEMO DASHBOARD")
-    dashboard.new_widget_type('Launches duration chart')#['Launch statistics chart', 'Overall statistics', 'Launches duration chart', 'Launch execution and issue statistic', 'Project activity panel', 'Test-cases growth trend chart', 'Investigated percentage of launches', 'Launches table', 'Unique bugs table', 'Most failed test-cases table (TOP-20)', 'Failed cases trend chart', 'Non-passed test-cases trend chart', 'Different launches comparison chart', 'Passing rate per launch', 'Passing rate summary', 'Flaky test cases table (TOP-20)', 'Cumulative trend chart', 'Most popular pattern table (TOP-20)', 'Component health check', 'Component health check (table view)']
-    dashboard.click_button_demo_filter()
-    dashboard.click_button_next()
-    dashboard.widget_name(name)
-    dashboard.click_button_add()
-    score = dashboard.score_widget()
-    assert score.count(name) == 0
+#
+# def test_1():
+#     name = 'jack'
+#     dashboard.clik_demo("DEMO DASHBOARD")
+#     dashboard.new_widget_type('Launches duration chart')#['Launch statistics chart', 'Overall statistics', 'Launches duration chart', 'Launch execution and issue statistic', 'Project activity panel', 'Test-cases growth trend chart', 'Investigated percentage of launches', 'Launches table', 'Unique bugs table', 'Most failed test-cases table (TOP-20)', 'Failed cases trend chart', 'Non-passed test-cases trend chart', 'Different launches comparison chart', 'Passing rate per launch', 'Passing rate summary', 'Flaky test cases table (TOP-20)', 'Cumulative trend chart', 'Most popular pattern table (TOP-20)', 'Component health check', 'Component health check (table view)']
+#     dashboard.click_button_demo_filter()
+#     dashboard.click_button_next()
+#     dashboard.widget_name(name)
+#     dashboard.click_button_add()
+#     score = dashboard.score_widget()
+#     assert score.count(name) == 0
 
 
 def test_2():
