@@ -10,7 +10,7 @@ class LocatorsDashboardPage:
     LOCATOR_WIDGET_NAME = '//input[@placeholder="Enter widget name"]'
     LOCATOR_WIDGET_ADD = '//*[@class="bigButton__big-button--ivY7j bigButton__color-booger--2IfQT"]'
     LOCATOR_BUTTON_DROP_LANGUAGE = '//*[@class="inputDropdown__select-block--2CQf-"]'
-    LOCATOR_PHOTO  = '//input[@type="file"]'
+    LOCATOR_PHOTO = '//input[@type="file"]'
     LOCATOR_BUTTON_DEMO = "//*[@class='gridCell__grid-cell--3e2mS gridCell__align-left--2beIG dashboardTable__name--1sWJs'][text()='{}']"
 
 
@@ -27,11 +27,13 @@ class DashboardPage(HomePage):
         list = []
         for x in buttons_widgets_type:
             list += [x.text]
-        widget_type = list.index(number) - 1
+        widget_type = list.index(number) + 1
         click_button_widget_type = self.driver.find_element_by_xpath('(//label)[' + str(widget_type) + ']')
         click_button_widget_type.click()
         button_next1 = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
         button_next1.send_keys(Keys.ENTER)
+
+
 
     def click_button_next(self):
         click_button_next = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
@@ -53,25 +55,29 @@ class DashboardPage(HomePage):
         click_button_add.click()
 
     def score_widget(self):
-        score_widget = self.driver.find_elements_by_xpath('//*[@class="react-grid-item widgetsGrid__widget-view--dVnmj react-draggable cssTransforms react-resizable"]')
-        return score_widget
+        score_widget = self.driver.find_elements_by_xpath('//*[@class="react-grid-item widgetsGrid__widget-view--dVnmj react-draggable cssTransforms react-resizable"]')#('//*[@class="react-grid-item widgetsGrid__widget-view--dVnmj react-draggable cssTransforms react-resizable"]')
+        list = []
+        for x in score_widget:
+            list += [x.text]
+        return score_widget.text
+
 
     # def check(self, name):
     #     check = self.driver.find_element_by_xpath("//*[@class='widgetHeader__widget-name-block--7fZoV' and text()='" + str(name) + "']")
     #     return check
 
-    def drop_language(self):
+    def drop_button_language(self):
         drop_language = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DROP_LANGUAGE)
         drop_language.click()
 
-    def russian_language(self):
-        russian_language = self.driver.find_element_by_xpath('//*[@class="inputDropdownOption__dropdown-option--3Szk3"][2]')
-        russian_language.click()
+    def button_russian_language(self):
+        button_russian_language = self.driver.find_element_by_xpath('//*[@class="inputDropdownOption__dropdown-option--3Szk3"][2]')
+        button_russian_language.click()
 
     def russian_text(self):
         russian_text = self.driver.find_element_by_xpath('// span[ @class ="inputDropdown__value--2gB2s"]')
         return russian_text.text
 
-    def photo(self, picture):
-        photo = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_PHOTO)
-        photo.send_keys(picture)
+    def download_photo(self, picture):
+        download_photo = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_PHOTO)
+        download_photo.send_keys(picture)

@@ -14,9 +14,9 @@ class LocatorsLaunchesPage:
 
 class LaunchesPage(HomePage):
 
-    def number_tests(self):
-        number_tests = self.driver.find_elements_by_xpath("//*[@class='gridRow__grid-row-wrapper--1dI9K']")
-        return len(number_tests)
+    def quantity_tests(self):
+        quantity_tests = self.driver.find_elements_by_xpath("//*[@class='gridRow__grid-row-wrapper--1dI9K']")
+        return len(quantity_tests)
 
     def total_main(self, number):
         total_main = self.driver.find_element_by_xpath(LocatorsLaunchesPage.LOCATOR_TOTAL.format(number))
@@ -34,7 +34,7 @@ class LaunchesPage(HomePage):
         skipped_main = self.driver.find_element_by_xpath(LocatorsLaunchesPage.LOCATOR_SKIPPED.format(number))
         return int(skipped_main.text)
 
-    def total_click(self, number):
+    def total_main_click(self, number):
         total_click = self.driver.find_element_by_xpath(LocatorsLaunchesPage.LOCATOR_TOTAL.format(number))
         total_click.send_keys(Keys.ENTER)
 
