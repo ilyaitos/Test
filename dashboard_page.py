@@ -6,7 +6,7 @@ class LocatorsDashboardPage:
     LOCATOR_BUTTON_NEXT = '(//div[@id="modal-root"]//button[@type="button"])[last()]'
     LOCATOR_BUTTON_DEMO_FILTER = '//*[@class="filtersItem__filter-item--1OosV"]'
     LOCATOR_BUTTON_NEW_WIDGET_TYPE = '(//div/button)[2]'
-    LOCATOR_BUTTON_WIDGET_TYPE = '//*[@class="widgetTypeItem__widget-type-item--17_3G"]'
+    LOCATOR_BUTTON_WIDGET_TYPE = '(//label[@class="inputRadio__input-radio--1Ayx8"])'
     LOCATOR_WIDGET_NAME = '//input[@placeholder="Enter widget name"]'
     LOCATOR_WIDGET_ADD = '//*[@class="bigButton__big-button--ivY7j bigButton__color-booger--2IfQT"]'
     LOCATOR_BUTTON_DROP_LANGUAGE = '//*[@class="inputDropdown__select-block--2CQf-"]'
@@ -20,18 +20,18 @@ class DashboardPage(HomePage):
         clik_demo = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_DEMO.format(name))
         clik_demo.click()
 
-    def new_widget_type(self, number):
+    def new_widget_type(self, name):
         click_button_new_widget = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEW_WIDGET_TYPE)
         click_button_new_widget.click()
         buttons_widgets_type = self.driver.find_elements_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_WIDGET_TYPE)
-        list = []
+        list_widgets = []
         for x in buttons_widgets_type:
-            list += [x.text]
-        widget_type = list.index(number) + 1
-        click_button_widget_type = self.driver.find_element_by_xpath('(//label)[' + str(widget_type) + ']')
+            list_widgets += [x.text]
+        widget_index = list_widgets.index(name) + 1
+        click_button_widget_type = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_WIDGET_TYPE + '[{}]'.format(widget_index))
         click_button_widget_type.click()
-        button_next1 = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
-        button_next1.send_keys(Keys.ENTER)
+        click_button_next = self.driver.find_element_by_xpath(LocatorsDashboardPage.LOCATOR_BUTTON_NEXT)
+        click_button_next.send_keys(Keys.ENTER)
 
 
 
